@@ -1,0 +1,39 @@
+package LoginTestcase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import objectRepo.login;
+import objectRepo.Logintest;
+
+public class LoginTC {
+    private WebDriver driver;
+    private String baseUrl = "https://uat.ormuco.com/login";
+
+    public ProductTC(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    @BeforeTest
+    public void openBrowser() {
+        System.setProperty("driver.webdriver.chrome", "C://chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.get(baseUrl);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void Login_test1() {
+        Login pc = new Login(driver);
+      pc.find_element_by_id(“ID”).send_keys(“username”); /*properties of the element can be stored in the repository*/
+      pc.find_element_by_id (“ID”).send_keys(“password”);
+      pc.find_element_by_id(“submit”).click();
+      verifyLoginpassword(); /*Verification defined in another java class */
+    }
+}
